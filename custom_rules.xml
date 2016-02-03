@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="sen_src" >    <property        name="source.dir"        value="src" />         <property name="resource.absolute.dir" location="res" />                <!-- <target name="-test" > -->    <!-- <echo message="得儿" /> -->    <!-- </target> --></project>

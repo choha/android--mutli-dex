@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+    name="MultiDemo_"
+    default="help" >
+
+    <!-- 不需要修改的 开始 -->
+    <!-- dex在asset目录中的位置， -->
+    <property name="dex.asset.dir" value="dex" />
+     <!-- aseent/dex目录中 -->
+     <property name="mulite.abs.dir" value="${asset.absolute.dir}/${dex.asset.dir}" />
+     <!-- 不需要修改的 结束 -->
+     
+     
+     <!--  拆分dex 1 -->
+    <!-- dex在dex.asset.dir文件夹中的文件名称 -->
+    <property name="dex.file.name1" value="classes1"></property>
+    <!-- 保存被拆分出来的class文件的路径-->
+    <property name="out.multi.classes.absolute.dir1" location="${out.dir}/${dex.file.name1}" />
+    <!-- 编译后，生成的dex文件的绝对路径，包含文件名 -->
+    <property name="intermediate.dex.file1" location="${out.absolute.dir}/${dex.file.name1}.dex" />
+     
+    
+      <!--  拆分dex 2 -->
+     <property name="dex.file.name2" value="classes2"></property>
+    <!-- 保存被拆分出来的class文件的路径-->
+    <property name="out.multi.classes.absolute.dir2" location="${out.dir}/${dex.file.name2}" />
+    <!-- 编译后，生成的dex文件的绝对路径，包含文件名 -->
+    <property name="intermediate.dex.file2" location="${out.absolute.dir}/${dex.file.name2}.dex" />
+     
+    
+    <!-- 创建保存拆分class文件的路径，每个dex文件需要一个路径 ， 需要修改 -->
+   <target name="-init" >
+    <!-- 创建第一个需要被拆分的文件路径 -->
+    <mkdir dir="${out.multi.classes.absolute.dir1}" ></mkdir>
+    
+     <mkdir dir="${out.multi.classes.absolute.dir2}" ></mkdir>
+    
+    </target>
+    
+    <!-- 代码混淆后执行移动class文件策略，不需要修改 -->
+    <target name="-post-obfuscate"   depends="-init" >
+        <!-- 将需要拆分的class文件，移动到相应的路径中 -->
+          <antcall target="-move-mulit-class"></antcall>
+    </target>
+    
+    <!-- 移动class文件，不需要修改 -->
+    <macrodef name="move-class">
+        <attribute name="srcDir" description="源class做在的相对路径，bin/目录开始"></attribute>
+        <attribute name="disDir" description="目标class做在的相对路径，bin/目录开始"></attribute>
+        <sequential>
+              <if>
+            <condition>
+                <and>
+                    <length string="@{srcDir}" trim="true" when="greater" length="0" /> 
+                </and>
+                <and>
+                     <length string="@{disDir}" trim="true" when="greater" length="0" /> 
+                </and>
+            </condition>
+            <then>
+                 <move file="@{srcDir}" todir="@{disDir}" ></move>
+            </then>
+            <else>
+                 <echo> 为设置远文件，或目标文件</echo>
+            </else>
+            </if>
+            
+        </sequential>
+    </macrodef>
+    
+      <!-- 移动需要拆分的class文件 ，需要修改-->
+    <target name="-move-mulit-class">
+        <!-- 将所有需要拆封在一个dex文件中的class移动一个文件夹中 -->
+        <move-class srcDir="${out.dir}/classes/com/multi/dex1" disDir="${out.multi.classes.absolute.dir1}/com/multi/"></move-class>
+        
+        <!-- dex 2 中包含的class文件 -->
+        <move-class srcDir="${out.dir}/classes/com/multi/dex2" disDir="${out.multi.classes.absolute.dir2}/com/multi/"></move-class>
+    </target>
+    
+    
+    <!-- 主dex编译结束后，编译拆分的dex，需要修改 -->
+    <target name="-post-dex">
+             <!--打包第一个被拆分dex文件 -->
+             <echo>编译拆分dex 1</echo>
+             <dex executable="${dx}"
+                    output="${intermediate.dex.file1}"
+                    nolocals="@{nolocals}"
+                    forceJumbo="${dex.force.jumbo}"
+                    disableDexMerger="${dex.disable.merger}"
+                    verbose="${verbose}">
+                <path path="${out.multi.classes.absolute.dir1}"/>
+            </dex>
+            <!-- 打包第二个被拆分的dex文件 -->
+             <echo>编译拆分dex 2</echo>
+             <dex executable="${dx}"
+                    output="${intermediate.dex.file2}"
+                    nolocals="@{nolocals}"
+                    forceJumbo="${dex.force.jumbo}"
+                    disableDexMerger="${dex.disable.merger}"
+                    verbose="${verbose}">
+                <path path="${out.multi.classes.absolute.dir2}"/>
+            </dex>
+    </target>
+    
+   	 <!-- 将分拆的dex文件，复制到assents/dex目录，需要修改 -->
+     <target name="-pre-crunch">
+         <!-- copy dex1 -->
+          <echo>复制拆分dex 1</echo>
+         <move file="${intermediate.dex.file1}" todir="${mulite.abs.dir}"></move>
+          <!-- copy dex2 -->
+           <echo>复制拆分dex 2</echo>
+         <move file="${intermediate.dex.file2}" todir="${mulite.abs.dir}"></move>
+     </target>
+     
+     
+     <!-- 编译结束，删除压缩的dex文件， 需要修改-->
+     <target name="-post-build">
+          <!-- 删除dex1 -->
+         <delete file="${mulite.abs.dir}/${dex.file.name1}.dex"></delete>
+         <!-- 删除dex2 -->
+         <delete file="${mulite.abs.dir}/${dex.file.name2}.dex"></delete>
+     </target>
+     
+  
+
+ 
+   
+</project>

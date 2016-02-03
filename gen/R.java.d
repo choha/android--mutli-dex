@@ -1,0 +1,20 @@
+/Users/shehonghao/workspace/MultiDemo/gen/com/multi/dex/R.java \
+ : /Users/shehonghao/workspace/MultiDemo/res/drawable/emoji_store_detail_split.xml \
+/Users/shehonghao/workspace/MultiDemo/res/drawable/image.jpg \
+/Users/shehonghao/workspace/MultiDemo/res/drawable-hdpi/activity_title_back.png \
+/Users/shehonghao/workspace/MultiDemo/res/drawable-hdpi/emoji_clip_whalebkg.9.png \
+/Users/shehonghao/workspace/MultiDemo/res/drawable-hdpi/image.jpg \
+/Users/shehonghao/workspace/MultiDemo/res/drawable-ldpi/activity_title_back.png \
+/Users/shehonghao/workspace/MultiDemo/res/drawable-ldpi/image.jpg \
+/Users/shehonghao/workspace/MultiDemo/res/drawable-mdpi/activity_title_back.png \
+/Users/shehonghao/workspace/MultiDemo/res/drawable-mdpi/image.jpg \
+/Users/shehonghao/workspace/MultiDemo/res/drawable-xhdpi/activity_title_back.png \
+/Users/shehonghao/workspace/MultiDemo/res/drawable-xhdpi/image.jpg \
+/Users/shehonghao/workspace/MultiDemo/res/layout/test.xml \
+/Users/shehonghao/workspace/MultiDemo/res/values/strings.xml \
+/Users/shehonghao/workspace/MultiDemo/bin/res/drawable-hdpi/activity_title_back.png \
+/Users/shehonghao/workspace/MultiDemo/bin/res/drawable-hdpi/emoji_clip_whalebkg.9.png \
+/Users/shehonghao/workspace/MultiDemo/bin/res/drawable-ldpi/activity_title_back.png \
+/Users/shehonghao/workspace/MultiDemo/bin/res/drawable-mdpi/activity_title_back.png \
+/Users/shehonghao/workspace/MultiDemo/bin/res/drawable-xhdpi/activity_title_back.png \
+/Users/shehonghao/workspace/MultiDemo/bin/AndroidManifest.xml \
